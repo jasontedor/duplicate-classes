@@ -1,0 +1,24 @@
+subprojects {
+    apply plugin: 'java'
+    sourceSets {
+        main {
+            output.resourcesDir = output.classesDir
+        }
+    }
+
+    jar {
+        manifest {
+            attributes(
+                'Created-By': System.getProperty('java.version') + ' (' + System.getProperty('java.vendor') + ')',
+                'Gradle-Version': "Gradle ${project.getGradle().getGradleVersion()}",
+                'Build-Hash': "${hash()}",
+                'Sources': 'https://github.com/jasontedor/duplicate-classes'
+            )
+        }
+    }
+}
+
+def hash() {
+    "git rev-parse HEAD".execute().text.trim()
+}
+
